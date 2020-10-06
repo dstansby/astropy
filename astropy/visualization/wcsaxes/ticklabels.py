@@ -252,6 +252,15 @@ class TickLabels(Text):
         self.set_va(self.va[axis][i])
         return super().get_window_extent(renderer)
 
+    def get_all_bboxes(self, renderer, tick_out_size):
+        self._set_xy_alignments(renderer, tick_out_size)
+
+        bbs = []
+        for axis in self.get_visible_axes():
+            for i in range(len(self.world[axis])):
+                bbs.append(self._get_bb(axis, i, renderer))
+        return bbs
+
     def draw(self, renderer, bboxes, ticklabels_bbox, tick_out_size):
         if not self.get_visible():
             return

@@ -130,6 +130,9 @@ class CoordinateHelper:
                                   'alpha': rcParams['grid.alpha'],
                                   'transform': self.parent_axes.transData}
 
+    def _get_all_bboxes(self, renderer):
+        return self.ticklabels.get_all_bboxes(renderer, self.ticks.out_size)
+
     def grid(self, draw_grid=True, grid_type=None, **kwargs):
         """
         Plot grid lines for this coordinate.

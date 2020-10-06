@@ -622,8 +622,10 @@ class WCSAxes(Axes):
         if not self.get_visible():
             return
 
-        bb = [b for b in self._bboxes if b and (b.width != 0 or b.height != 0)]
-        bb.append(super().get_tightbbox(renderer, *args, **kwargs))
+        bb = []
+        for coord in self.coords:
+            coord._update_ticks()
+            bb += coord._get_all_bboxes(renderer)
 
         if bb:
             _bbox = Bbox.union(bb)
